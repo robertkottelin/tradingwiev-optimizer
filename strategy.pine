@@ -1,0 +1,17 @@
+//@version=5
+strategy("sma", overlay=true, margin_long=100, margin_short=100)
+
+// Inputs for the SMA periods
+smaShortPeriod = input.int(14, title="Short SMA Period", minval=1)
+smaLongPeriod = input.int(28, title="Long SMA Period", minval=1)
+
+// Conditions
+longCondition = ta.crossover(ta.sma(close, smaShortPeriod), ta.sma(close, smaLongPeriod))
+shortCondition = ta.crossover(ta.sma(close, smaShortPeriod), ta.sma(close, smaLongPeriod))
+
+// Entries
+if (longCondition)
+    strategy.entry("My Long Entry Id", strategy.long)
+
+if (shortCondition)
+    strategy.entry("My Short Entry Id", strategy.short)

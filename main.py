@@ -1,26 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 # Start a new instance of Chrome
 driver = webdriver.Chrome()
 
 # Navigate to TradingView
-driver.get("https://www.tradingview.com/")
+driver.get("https://www.tradingview.com/chart/?symbol=BITSTAMP%3ABTCUSD")
 
 parameters_to_optimize = {
-    'moving_avg_length': range(5, 21),
-    'rsi_length': range(10, 21),
+    'smaShort': range(5, 25),
+    'smaLong': range(10, 45),
     # add other parameters here
 }
 
 import itertools
 
 # Define a function to apply parameters and retrieve performance using Selenium
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-
 def apply_parameters_and_get_performance(driver, params):
     try:
         # Navigate to the strategy settings pane.
